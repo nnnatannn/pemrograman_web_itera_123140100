@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latihan Modul Pertemuan 1 - JavaScript Dasar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="modul-header">
+    <div class="container">
+      <div class="header-content">
+        <div>
+          <h1>Modul Praktikum Pertemuan 1: JavaScript Dasar</h1>
+          <p class="subtitle">Teknik Informatika - Institut Teknologi Sumatera (ITERA)</p>
+        </div>
+        <div class="student-info">
+          <span><strong>Nama:</strong> Yonatanoel</span>
+          <span><strong>NIM:</strong> 123140100</span>
+          <span><strong>Kelas:</strong> RB</span>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#sec-variabel">1. Variabel & Kondisional</a>
+        <a href="#sec-loop">2. Loop & Fungsi</a>
+        <a href="#sec-array">3. Array & Objek</a>
+        <a href="#sec-dom">4. Manipulasi DOM</a>
+        <a href="#sec-api">5. Fetch API</a>
+        <a href="../index.html" class="nav-pos">🛒 Buka Mini POS</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <!-- Bagian 1: Variabel & Kondisional -->
+    <section id="sec-variabel" class="modul-section">
+      <div class="section-title">
+        <span class="badge-num">1</span>
+        <h2>Variabel, Output, & Kondisional</h2>
+      </div>
+      <div class="card">
+        <h3>Hasil Eksekusi Kode Dasar & Latihan Kondisional</h3>
+        <div id="result" class="output-box"></div>
+      </div>
+    </section>
+
+    <!-- Bagian 2: Loop & Fungsi -->
+    <section id="sec-loop" class="modul-section">
+      <div class="section-title">
+        <span class="badge-num">2</span>
+        <h2>Loop & Fungsi</h2>
+      </div>
+      <div class="card">
+        <h3>Loop & Kalkulator Interaktif</h3>
+        <div id="loop-output" class="output-box"></div>
+
+        <hr class="divider">
+
+        <div class="event-demo">
+          <h4>Demo Event Handler Sapa</h4>
+          <div class="form-inline">
+            <input type="text" id="nama-input" placeholder="Masukkan nama Anda">
+            <button id="sapa-button" class="btn btn-primary">Sapa Saya</button>
+          </div>
+          <div id="sapa-output" class="result-msg"></div>
+
+          <h4 style="margin-top: 1.5rem;">Kalkulator Sederhana (Fungsi Matematika)</h4>
+          <div class="calc-grid">
+            <input type="number" id="angka1" placeholder="Angka 1">
+            <input type="number" id="angka2" placeholder="Angka 2">
+          </div>
+          <div class="calc-buttons">
+            <button id="btn-tambah" class="btn btn-calc btn-green">+</button>
+            <button id="btn-kurang" class="btn btn-calc btn-yellow">-</button>
+            <button id="btn-kali" class="btn btn-calc btn-purple">×</button>
+            <button id="btn-bagi" class="btn btn-calc btn-red">÷</button>
+          </div>
+          <div id="hasil-kalkulator" class="result-msg font-bold"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bagian 3: Array & Objek -->
+    <section id="sec-array" class="modul-section">
+      <div class="section-title">
+        <span class="badge-num">3</span>
+        <h2>Struktur Data: Array & Objek</h2>
+      </div>
+      <div class="card">
+        <h3>Manipulasi Array & Objek Mahasiswa</h3>
+        <div id="array-demo" class="output-box"></div>
+        <div id="objek-demo" class="output-box" style="margin-top: 1rem;"></div>
+      </div>
+    </section>
+
+    <!-- Bagian 4: Manipulasi DOM -->
+    <section id="sec-dom" class="modul-section">
+      <div class="section-title">
+        <span class="badge-num">4</span>
+        <h2>Manipulasi DOM Dinamis</h2>
+      </div>
+      <div class="card">
+        <div id="dom-output" class="dom-box">
+          <p class="placeholder-text">Area konten manipulasi DOM</p>
+        </div>
+        <div class="button-group">
+          <button id="btn-tambah-item" class="btn btn-primary">➕ Tambah Item</button>
+          <button id="btn-hapus-item" class="btn btn-danger">➖ Hapus Item</button>
+          <button id="btn-ubah-warna" class="btn btn-secondary">🎨 Ubah Warna Background</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bagian 5: Fetch API -->
+    <section id="sec-api" class="modul-section">
+      <div class="section-title">
+        <span class="badge-num">5</span>
+        <h2>Fetch API (Asynchronous JS)</h2>
+      </div>
+      <div class="card">
+        <div class="form-inline">
+          <button id="btn-fetch" class="btn btn-primary">🌐 Ambil Data Post dari API</button>
+        </div>
+        <div id="api-output" class="output-box" style="margin-top: 1rem;">
+          <p class="placeholder-text">Klik tombol di atas untuk memuat data via Fetch API (jsonplaceholder.typicode.com).</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="modul-footer">
+    <div class="container">
+      <p>&copy; 2026 Praktikum PAW ITERA - Pertemuan 1 · Yonatanoel (123140100)</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
