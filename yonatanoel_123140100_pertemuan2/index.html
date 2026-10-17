@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ITERA Student Hub - Smart Personal Dashboard | Yonatanoel Petra (123140100)</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Vanilla CSS Design System -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="dashboard-container">
+
+    <!-- Top Navigation & Student Header -->
+    <header class="site-header">
+      <div class="brand-wrapper">
+        <img src="https://if.itera.ac.id/wp-content/uploads/2020/08/logo-if-itera.png" alt="Logo IF ITERA" class="brand-logo-img" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23d97706\'><circle cx=\'12\' cy=\'12\' r=\'10\'/><text x=\'12\' y=\'16\' font-size=\'10\' text-anchor=\'middle\' fill=\'white\' font-weight=\'bold\'>ITERA</text></svg>'">
+        <div>
+          <span class="brand-badge">PAW 2026/2027 • PERTEMUAN 02</span>
+          <h1 class="brand-title">ITERA Smart Student Dashboard</h1>
+          <p class="brand-subtitle">
+            <strong>Yonatanoel Petra Hutabarat</strong> • NIM: <strong>123140100</strong> • Kelas: <strong>RB (Informatika)</strong>
+          </p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Live Clock & Date -->
+        <div class="clock-card">
+          <span id="live-clock" class="live-clock">--:--:-- WIB</span>
+          <span id="live-date" class="live-date">Memuat tanggal...</span>
+        </div>
+
+        <!-- Link Demo Modul ES6+ -->
+        <a href="modul/index.html" class="btn btn-secondary text-xs" title="Buka Halaman Latihan Modul">
+          <span>📚 Latihan Modul</span>
+        </a>
+
+        <!-- Dark / Light Mode Switch -->
+        <button id="theme-toggle-btn" class="theme-toggle-btn" title="Ganti Mode Gelap / Terang" aria-label="Toggle dark mode">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Overview Widgets Grid (Weather & Quote via Async API) -->
+    <section class="widgets-grid" aria-label="Widget Informasi Real-time">
+      <!-- Weather Widget (Open-Meteo ITERA Campus) -->
+      <div id="weather-widget" class="widget-card">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-xs font-semibold text-amber-600 uppercase tracking-wide">📍 Kampus ITERA</span>
+            <div class="text-2xl font-extrabold mt-1">Memuat Cuaca...</div>
+            <div class="text-xs text-slate-400">Sinkronisasi Open-Meteo...</div>
+          </div>
+          <div class="text-3xl">🌤️</div>
+        </div>
+      </div>
+
+      <!-- Daily Motivation Quote (DummyJSON Quotes API) -->
+      <div id="quote-widget" class="widget-card">
+        <div class="quote-header">
+          <span class="quote-badge">💡 Motivasi Mahasiswa Hari Ini</span>
+          <button id="btn-refresh-quote" class="btn-icon text-xs text-slate-400 hover:text-amber-500" title="Ganti Kutipan Motivasi">
+            🔄 Refresh
+          </button>
+        </div>
+        <p class="quote-text">"Sedang memuat kutipan inspiratif harian..."</p>
+        <p class="quote-author">— Memuat...</p>
+      </div>
+    </section>
+
+    <!-- Academic Productivity Stats (Array Methods: Filter & Reduce) -->
+    <section class="stats-grid" aria-label="Statistik Produktivitas">
+      <div class="stat-card">
+        <div class="stat-icon total">📋</div>
+        <div>
+          <div id="stat-total-tasks" class="stat-num">0</div>
+          <div class="stat-label">Total Tugas</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon completed">✅</div>
+        <div>
+          <div id="stat-completed-tasks" class="stat-num">0</div>
+          <div class="stat-label">Tugas Selesai</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon pending">⏳</div>
+        <div>
+          <div id="stat-pending-tasks" class="stat-num">0</div>
+          <div class="stat-label">Tugas Tertunda</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon high">🔥</div>
+        <div>
+          <div id="stat-high-priority" class="stat-num">0</div>
+          <div class="stat-label">Prioritas Tinggi</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Productivity Bar -->
+    <div class="productivity-card">
+      <div class="flex items-center justify-between text-xs font-semibold">
+        <span class="text-slate-600 dark:text-slate-300">Tingkat Penyelesaian Tugas Akademik</span>
+        <span id="productivity-percent" class="text-emerald-600 font-bold">0%</span>
+      </div>
+      <div class="progress-track">
+        <div id="productivity-bar" class="progress-fill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Workspace Grid -->
+    <main class="workspace-grid">
+
+      <!-- LEFT COLUMN: Task Manager & Quick Notes -->
+      <div class="space-y-6">
+
+        <!-- Task Management Card -->
+        <section class="task-manager-section" aria-labelledby="task-manager-title">
+          <div class="section-header">
+            <h2 id="task-manager-title" class="section-title">
+              <span>🎯</span> Daftar Tugas & Proyek Akademik
+            </h2>
+            <div class="flex items-center gap-2">
+              <button id="btn-import-simulation" class="btn btn-secondary text-xs" title="Tarik Todo Contoh via JSONPlaceholder API">
+                <span>⚡ Import API</span>
+              </button>
+              <button id="btn-open-add-task" class="btn btn-primary text-xs">
+                <span>+ Tambah Tugas</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Filtering & Search Bar -->
+          <div class="task-controls-card">
+            <div class="search-input-wrapper">
+              <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input type="text" id="task-search-input" class="search-input" placeholder="Cari berdasarkan judul tugas, mata kuliah, atau catatan...">
+            </div>
+
+            <div class="filter-options-row">
+              <!-- Filter Tabs: Status -->
+              <div class="filter-tabs" role="tablist">
+                <button type="button" class="filter-tab active" data-status="all">Semua</button>
+                <button type="button" class="filter-tab" data-status="pending">Aktif</button>
+                <button type="button" class="filter-tab" data-status="completed">Selesai</button>
+              </div>
+
+              <!-- Filter Dropdown: Kategori -->
+              <div class="flex items-center gap-2">
+                <select id="filter-category" class="dropdown-select" aria-label="Filter kategori">
+                  <option value="all">Semua Kategori</option>
+                  <option value="Tugas Kuliah">Tugas Kuliah</option>
+                  <option value="Praktikum">Praktikum</option>
+                  <option value="Proyek">Proyek</option>
+                  <option value="Organisasi">Organisasi</option>
+                </select>
+
+                <!-- Sorting -->
+                <select id="sort-tasks" class="dropdown-select" aria-label="Urutkan tugas">
+                  <option value="deadline">Urutkan: Tenggat Terdekat</option>
+                  <option value="priority">Urutkan: Prioritas Tertinggi</option>
+                  <option value="created">Urutkan: Terbaru Dibuat</option>
+                </select>
+
+                <button id="btn-clear-completed" class="btn btn-secondary text-xs py-1" title="Hapus tugas yang sudah selesai">
+                  🧹 Bersihkan
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Task Items List -->
+          <div id="task-list" class="task-list">
+            <!-- Dynamic Task Cards -->
+          </div>
+
+          <!-- Empty State -->
+          <div id="task-empty-state" class="empty-state hidden">
+            <div class="empty-state-icon">📋</div>
+            <h4 class="font-bold text-slate-700 dark:text-slate-300">Belum ada tugas yang cocok</h4>
+            <p class="text-xs text-slate-400 mt-1">Coba sesuaikan pencarian atau klik "+ Tambah Tugas" untuk membuat tugas baru.</p>
+          </div>
+        </section>
+
+        <!-- Quick Notes (Sticky Memos) -->
+        <section class="notes-container" aria-labelledby="notes-title">
+          <div class="section-header">
+            <h3 id="notes-title" class="section-title text-base">
+              <span>📌</span> Catatan Cepat & Memo Kuliah
+            </h3>
+            <button id="btn-add-note" class="btn btn-secondary text-xs">
+              <span>+ Catatan</span>
+            </button>
+          </div>
+          <div id="notes-grid" class="notes-grid">
+            <!-- Dynamic Quick Notes -->
+          </div>
+        </section>
+
+      </div>
+
+      <!-- RIGHT COLUMN: Weekly Schedule & Student Tools -->
+      <aside class="space-y-6">
+
+        <!-- Weekly Schedule Section -->
+        <section class="schedule-container" aria-labelledby="schedule-title">
+          <div class="section-header">
+            <h3 id="schedule-title" class="section-title text-base">
+              <span>🗓️</span> Jadwal Kuliah Mingguan
+            </h3>
+            <button id="btn-add-schedule" class="btn btn-primary text-xs">
+              <span>+ Jadwal</span>
+            </button>
+          </div>
+
+          <!-- Day Navigation Tabs (Senin - Jumat) -->
+          <nav id="schedule-days-nav" class="schedule-days-nav" aria-label="Navigasi hari jadwal">
+            <button type="button" class="day-tab active" data-day="Senin">Senin</button>
+            <button type="button" class="day-tab" data-day="Selasa">Selasa</button>
+            <button type="button" class="day-tab" data-day="Rabu">Rabu</button>
+            <button type="button" class="day-tab" data-day="Kamis">Kamis</button>
+            <button type="button" class="day-tab" data-day="Jumat">Jumat</button>
+          </nav>
+
+          <!-- Schedule List -->
+          <div id="schedule-list" class="schedule-list">
+            <!-- Dynamic Schedules -->
+          </div>
+
+          <div id="schedule-empty-state" class="empty-state hidden py-6">
+            <div class="empty-state-icon text-xl">☕</div>
+            <p class="text-xs text-slate-400">Tidak ada perkuliahan pada hari ini.</p>
+          </div>
+        </section>
+
+        <!-- Quick Links & Campus Info Card -->
+        <section class="widget-card space-y-4">
+          <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm flex items-center gap-2">
+            <span>🏛️</span> Tautan Cepat ITERA
+          </h4>
+          <ul class="text-xs space-y-2 text-slate-600 dark:text-slate-300">
+            <li>
+              <a href="https://siakad.itera.ac.id" target="_blank" rel="noopener noreferrer" class="hover:text-amber-600 flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 transition">
+                <span>🌐 SIAKAD ITERA</span>
+                <span class="text-slate-400">↗</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://kuliah.itera.ac.id" target="_blank" rel="noopener noreferrer" class="hover:text-amber-600 flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 transition">
+                <span>💻 E-Learning (Kuliah ITERA)</span>
+                <span class="text-slate-400">↗</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://praktikum-paw20262027.vercel.app/pertemuan/2" target="_blank" rel="noopener noreferrer" class="hover:text-amber-600 flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 transition">
+                <span>📖 Modul Praktikum PAW 2026</span>
+                <span class="text-slate-400">↗</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="pt-3 border-t border-slate-100 dark:border-slate-800">
+            <button id="btn-reset-all" class="btn btn-secondary w-full text-xs text-rose-500 hover:text-rose-600" title="Reset semua data ke data bawaan">
+              🔄 Reset Data ke Default ITERA
+            </button>
+          </div>
+        </section>
+
+      </aside>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div>
+        <strong>Praktikum Pengembangan Aplikasi Web (PAW) 2026/2027</strong> • Institut Teknologi Sumatera
+      </div>
+      <div>
+        Dibuat oleh: <span class="font-bold text-slate-800 dark:text-slate-200">Yonatanoel Petra Hutabarat</span> (123140100) - Kelas RB
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ========================================================
+       MODAL: TAMBAH / EDIT TUGAS AKADEMIK (CRUD)
+       ======================================================== -->
+  <div id="task-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="task-modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="task-modal-title" class="modal-title">Tambah Tugas Baru</h3>
+        <button id="btn-close-task-modal" class="btn-icon" aria-label="Tutup modal">✕</button>
+      </div>
+      <form id="task-form">
+        <div class="modal-body">
+          <input type="hidden" id="task-id">
+
+          <div class="form-group">
+            <label for="task-title" class="form-label">Judul Tugas / Deskripsi Singkat *</label>
+            <input type="text" id="task-title" class="form-input" placeholder="Contoh: Laporan Praktikum Modul 2" required>
+          </div>
+
+          <div class="form-group">
+            <label for="task-course" class="form-label">Mata Kuliah *</label>
+            <input type="text" id="task-course" class="form-input" placeholder="Contoh: Pengembangan Aplikasi Web" required>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="form-group">
+              <label for="task-category" class="form-label">Kategori</label>
+              <select id="task-category" class="form-select">
+                <option value="Praktikum">Praktikum</option>
+                <option value="Tugas Kuliah">Tugas Kuliah</option>
+                <option value="Proyek">Proyek</option>
+                <option value="Organisasi">Organisasi</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="task-priority" class="form-label">Prioritas</label>
+              <select id="task-priority" class="form-select">
+                <option value="high">Tinggi (Penting & Mendesak)</option>
+                <option value="medium" selected>Sedang (Normal)</option>
+                <option value="low">Rendah (Fleksibel)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="task-deadline" class="form-label">Tenggat Waktu (Deadline)</label>
+            <input type="datetime-local" id="task-deadline" class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label for="task-notes" class="form-label">Catatan Tambahan (Opsional)</label>
+            <textarea id="task-notes" class="form-textarea" rows="2" placeholder="Tulis instruksi khusus, tautan pengumpulan, atau referensi..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="btn-cancel-task-modal" class="btn btn-secondary">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan Tugas</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL: TAMBAH JADWAL KULIAH
+       ======================================================== -->
+  <div id="schedule-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Tambah Jadwal Perkuliahan</h3>
+        <button id="btn-close-schedule-modal" class="btn-icon">✕</button>
+      </div>
+      <form id="schedule-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="schedule-day" class="form-label">Hari Perkuliahan</label>
+            <select id="schedule-day" class="form-select">
+              <option value="Senin">Senin</option>
+              <option value="Selasa">Selasa</option>
+              <option value="Rabu">Rabu</option>
+              <option value="Kamis">Kamis</option>
+              <option value="Jumat">Jumat</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="schedule-course" class="form-label">Nama Mata Kuliah *</label>
+            <input type="text" id="schedule-course" class="form-input" placeholder="Contoh: Algoritma & Struktur Data" required>
+          </div>
+
+          <div class="form-group">
+            <label for="schedule-room" class="form-label">Ruang / Gedung Kuliah *</label>
+            <input type="text" id="schedule-room" class="form-input" placeholder="Contoh: Gedung Kuliah Umum (GKU 1)" required>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div class="form-group">
+              <label for="schedule-start" class="form-label">Jam Mulai</label>
+              <input type="time" id="schedule-start" class="form-input" value="08:00" required>
+            </div>
+            <div class="form-group">
+              <label for="schedule-end" class="form-label">Jam Selesai</label>
+              <input type="time" id="schedule-end" class="form-input" value="09:40" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="schedule-lecturer" class="form-label">Dosen / Asisten (Opsional)</label>
+            <input type="text" id="schedule-lecturer" class="form-input" placeholder="Nama dosen pengampu...">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Simpan Jadwal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL: TAMBAH CATATAN CEPAT
+       ======================================================== -->
+  <div id="note-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Tambah Catatan Cepat</h3>
+        <button id="btn-close-note-modal" class="btn-icon">✕</button>
+      </div>
+      <form id="note-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="note-title" class="form-label">Judul Memo *</label>
+            <input type="text" id="note-title" class="form-input" placeholder="Contoh: Kisi-kisi UTS PAW" required>
+          </div>
+
+          <div class="form-group">
+            <label for="note-color" class="form-label">Warna Kartu</label>
+            <select id="note-color" class="form-select">
+              <option value="yellow">Kuning Klasik</option>
+              <option value="blue">Biru Muda</option>
+              <option value="emerald">Hijau Mint</option>
+              <option value="purple">Ungu Lavender</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="note-content" class="form-label">Isi Catatan *</label>
+            <textarea id="note-content" class="form-textarea" rows="3" placeholder="Tulis catatan atau memo Anda di sini..." required></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Simpan Catatan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Entry Point JavaScript ES6+ (type="module") -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
