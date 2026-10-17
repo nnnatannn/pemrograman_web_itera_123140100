@@ -69,7 +69,16 @@
 
   </div>
 
-  <!-- Type module wajib untuk ES6 modules -->
+  <!-- Type module wajib untuk ES6 modules saat dibuka via Live Server / HTTP -->
   <script type="module" src="js/main.js"></script>
+
+  <!-- Fallback otomatis jika dibuka via file:// -->
+  <script>
+    if (window.location.protocol === 'file:') {
+      const fb = document.createElement('script');
+      fb.src = 'js/bundle.js';
+      document.body.appendChild(fb);
+    }
+  </script>
 </body>
 </html>

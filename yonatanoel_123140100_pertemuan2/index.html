@@ -456,7 +456,16 @@
   <!-- Toast Notification Container -->
   <div id="toast-container" class="toast-container"></div>
 
-  <!-- Entry Point JavaScript ES6+ (type="module") -->
+  <!-- Entry Point JavaScript ES6+ Modular (Digunakan saat dibuka via Live Server / HTTP) -->
   <script type="module" src="js/main.js"></script>
+
+  <!-- Fallback Otomatis: Jika dibuka langsung via double-click File Explorer (protokol file://) -->
+  <script>
+    if (window.location.protocol === 'file:') {
+      const fallbackScript = document.createElement('script');
+      fallbackScript.src = 'js/bundle.js';
+      document.body.appendChild(fallbackScript);
+    }
+  </script>
 </body>
 </html>
