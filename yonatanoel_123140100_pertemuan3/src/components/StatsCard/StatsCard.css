@@ -1,0 +1,135 @@
+.stats-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.stats-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.stats-card-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.stats-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stats-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stats-number-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.stats-count {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.stats-pct-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-full);
+}
+
+.stats-subtitle {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+.stats-icon-wrapper {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Card Variants */
+.card-primary .stats-icon-wrapper {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+.card-primary .stats-pct-badge {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+.card-primary .stats-progress-fill {
+  background: var(--color-primary);
+}
+
+.card-milik .stats-icon-wrapper {
+  background-color: var(--status-milik-bg);
+  color: var(--status-milik-text);
+}
+.card-milik .stats-pct-badge {
+  background-color: var(--status-milik-bg);
+  color: var(--status-milik-text);
+}
+.card-milik .stats-progress-fill {
+  background: #10b981;
+}
+
+.card-baca .stats-icon-wrapper {
+  background-color: var(--status-baca-bg);
+  color: var(--status-baca-text);
+}
+.card-baca .stats-pct-badge {
+  background-color: var(--status-baca-bg);
+  color: var(--status-baca-text);
+}
+.card-baca .stats-progress-fill {
+  background: #3b82f6;
+}
+
+.card-beli .stats-icon-wrapper {
+  background-color: var(--status-beli-bg);
+  color: var(--status-beli-text);
+}
+.card-beli .stats-pct-badge {
+  background-color: var(--status-beli-bg);
+  color: var(--status-beli-text);
+}
+.card-beli .stats-progress-fill {
+  background: #f59e0b;
+}
+
+.stats-progress-track {
+  width: 100%;
+  height: 6px;
+  background-color: #f1f5f9;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.stats-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
